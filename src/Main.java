@@ -1,15 +1,45 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        System.out.println("/// PASSWORD GENERATOR ///");
+        Random random = new Random();
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        String numbers = "0123456789";
+        char cNumber = numbers.charAt(random.nextInt(numbers.length()));
+
+        String letters = "abcdefghijklmnopqrstuvwxyz";
+        int pos1 = random.nextInt(letters.length());
+        char cLetterLow = letters.charAt(pos1);
+
+        int pos2 = random.nextInt(letters.length());
+        if (pos2 == pos1) pos2 = random.nextInt(letters.length());
+        char cLetterUp = Character.toUpperCase(letters.charAt(pos2));
+
+        String SpecialChar = "!@#$%^&*()_+-=[]{}|;:,.<>?";
+        char cSpecialChar = SpecialChar.charAt(random.nextInt(SpecialChar.length()));
+
+        List<Character> passWord = new ArrayList<>(List.of(cSpecialChar, cNumber, cLetterLow, cLetterUp));
+
+        int i = 0;
+        String allChar = numbers + SpecialChar + letters + letters.toUpperCase();
+        while(i < 4){
+            passWord.add(allChar.charAt(random.nextInt(allChar.length())));
+            i += 1;
         }
+
+        Collections.shuffle(passWord);
+        StringBuilder sb = new StringBuilder();
+
+        for(char c : passWord) {
+            sb.append(c);
+        }
+        System.out.println("Password generated:");
+        System.out.print(sb.toString());
+
+
     }
 }
